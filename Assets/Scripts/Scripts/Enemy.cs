@@ -47,9 +47,10 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Die()
     {
-        speed = 0;
+        agent.speed = 0;
         animator.SetTrigger("death");
         ParticleSystem particle = Instantiate(dieParticle, transform.position, transform.rotation);
+        Destroy(particle.gameObject, 1f);
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }

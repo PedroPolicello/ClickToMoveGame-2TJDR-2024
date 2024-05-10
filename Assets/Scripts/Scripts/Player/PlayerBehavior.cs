@@ -6,13 +6,16 @@ public class PlayerBehavior : MonoBehaviour
 {
     private NavMeshAgent agent;
 
+    [Header("Movement Configs")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float Acceleration;
     [SerializeField] private float turnSpeed;
+    [Header("Attack Configs")]
     [SerializeField] private LayerMask attackLayer;
-    [SerializeField] private ParticleSystem clickParticle;
+    [SerializeField] private Transform attackPos;
     [SerializeField] private FireBall spell;
-
+    [Header("Particle Configs")]
+    [SerializeField] private ParticleSystem clickParticle;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -46,7 +49,7 @@ public class PlayerBehavior : MonoBehaviour
         print("Attacking");
         GetComponent<Animator>().SetTrigger("attack");
         transform.LookAt(hit.point);
-        Instantiate(spell, transform.position, transform.rotation);
+        Instantiate(spell, attackPos.position, attackPos.rotation);
     }
 
     private void HandleMovement(RaycastHit hit)
